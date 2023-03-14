@@ -70,8 +70,8 @@ pipeline {
                ./trivy image petercharles/jenkins-course
             """)
             }
-            currentDir = powershell(returnStdout: true, script: 'pwd')
-            println(currentDir)
+            // currentDir = powershell(returnStdout: true, script: 'pwd')
+            // println(currentDir)
          }
       }
       // stage('Analyze with Anchore plugin') {
