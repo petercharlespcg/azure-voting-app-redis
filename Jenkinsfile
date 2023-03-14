@@ -65,8 +65,9 @@ pipeline {
       stage('add-trivy') {
          steps {
             powershell(script: """
+               pwd
                cd ../../../trivy_0.38.2_windows-64bit
-               ./trivy image petercharles/jenkins-course
+               pwd
             """)
          }
       }
