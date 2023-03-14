@@ -62,11 +62,9 @@ pipeline {
             }
          }
       }
-      stage('add-trivy') {
+      stage('Add trivy') {
          steps {
             powershell(script: """
-               pwd
-               cd ../../../trivy_0.38.2_windows-64bit/
                pwd
             """)
          }
