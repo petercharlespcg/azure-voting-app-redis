@@ -74,11 +74,11 @@ pipeline {
             // println(currentDir)
          }
       }
-      // stage('Analyze with Anchore plugin') {
-      //    steps {
-      //       Write-Output "petercharles/jenkins-course" > anchore_images
-      //       anchore name: 'anchore_images'
-      //    }
-      // }
+      stage('Analyze with Anchore plugin') {
+         steps {
+            Write-Output "petercharles/jenkins-course" > anchore_images
+            anchore name: 'anchore_images'
+         }
+      }
    }
 }
