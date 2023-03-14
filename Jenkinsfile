@@ -76,12 +76,9 @@ pipeline {
       }
       stage('Analyze with Anchore plugin') {
          steps {
-         // writeFile file: 'anchore_images', text: imageLine
-         Write-Output "petercharles/jenkins-course" > anchore_images
-         anchore name: 'anchore_images'
+            Write-Output "petercharles/jenkins-course" > anchore_images
+            anchore name: 'anchore_images'
          }
       }
-    }
-
    }
 }
