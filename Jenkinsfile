@@ -64,10 +64,10 @@ pipeline {
       }
       stage('add-trivy') {
          steps {
-            dir('C:\\Users\\s7608130\\Downloads\\trivy_0.38.2_windows-64bit') {
-               powershell(script: """
-                  trivy image petercharles/jenkins-course
-            """) 
+            powershell(script: """
+               cd C:\\Users\\s7608130\\Downloads\\trivy_0.38.2_windows-64bit\\
+               trivy  image petercharles/jenkins-course
+            """)
             }
          }
       }
