@@ -64,9 +64,12 @@ pipeline {
       }
       stage('Add trivy') {
          steps {
-            powershell(script: """
-               pwd
+            echo "Workspace is $WORKSPACE"
+            dir('C:\\Users\\s7608130\\Downloads\\trivy_0.38.2_windows-64bit') {
+               powershell(script: """
+               trivy image petercharles/jenkins-course
             """)
+            }
          }
       }
    }
