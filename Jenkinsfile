@@ -49,36 +49,58 @@ pipeline {
             """)
          }
       }
-      stage('Push Container') {
-         steps {
-            echo "Workspace is $WORKSPACE"
-            dir("$WORKSPACE/azure-vote") {
-               script {
-                  docker.withRegistry('https://index.docker.io/v1', 'DockerHub') {
-                     def image = docker.build('petercharles/jenkins-course:latest')
-                     image.push()
-                  }
+      stage('Container Scanning') {
+         parallel {
+            stage('Run Anchore') {
+               steps {
+                  powershell(script: """
+                     Write-Output "petercharles/jenkins-course" > anchore_images
+                  """)
+                  anchore bailOnFail: false, bailOnPluginFail, name: 'anchore_images' 
+               }
+            }
+            stage('Run Trivy') {
+               steps {
+                  sleep(time: 30, unit: 'Seconds')
+         //       dir('C:\\Users\\s7608130\\Downloads\\trivy_0.38.2_windows-64bit') {
+         //          powershell(script: """
+         //          ./trivy image petercharles/jenkins-course
+         //       """)
+         //       }                  
                }
             }
          }
       }
-      stage('Add trivy') {
-         steps {
-            echo "Workspace is $WORKSPACE"
-            dir('C:\\Users\\s7608130\\Downloads\\trivy_0.38.2_windows-64bit') {
-               powershell(script: """
-               ./trivy image petercharles/jenkins-course
-            """)
-            }
-            // currentDir = powershell(returnStdout: true, script: 'pwd')
-            // println(currentDir)
-         }
-      }
-      stage('Analyze with Anchore plugin') {
-         steps {
-            writeFile file: 'anchore_images', text: "petercharles/jenkins-course"
-            anchore name: 'anchore_images'
-         }
-      }
+      // stage('Push Container') {
+      //    steps {
+      //       echo "Workspace is $WORKSPACE"
+      //       dir("$WORKSPACE/azure-vote") {
+      //          script {
+      //             docker.withRegistry('https://index.docker.io/v1', 'DockerHub') {
+      //                def image = docker.build('petercharles/jenkins-course:latest')
+      //                image.push()
+      //             }
+      //          }
+      //       }
+      //    }
+      // }
+      // stage('Add trivy') {
+      //    steps {
+      //       echo "Workspace is $WORKSPACE"
+      //       dir('C:\\Users\\s7608130\\Downloads\\trivy_0.38.2_windows-64bit') {
+      //          powershell(script: """
+      //          ./trivy image petercharles/jenkins-course
+      //       """)
+      //       }
+      //       // currentDir = powershell(returnStdout: true, script: 'pwd')
+      //       // println(currentDir)
+      //    }
+      // }
+      // stage('Analyze with Anchore plugin') {
+      //    steps {
+      //       writeFile file: 'anchore_images', text: "petercharles/jenkins-course"
+      //       anchore name: 'anchore_images'
+      //    }
+      // }
    }
 }
