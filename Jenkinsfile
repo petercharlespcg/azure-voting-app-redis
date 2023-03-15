@@ -56,7 +56,7 @@ pipeline {
                   powershell(script: """
                      Write-Output "petercharles/jenkins-course" > anchore_images
                   """)
-                  anchore bailOnFail: false, bailOnPluginFail, name: 'anchore_images' 
+                  anchore bailOnFail: false, bailOnPluginFail: false, name: 'anchore_images' 
                }
             }
             stage('Run Trivy') {
