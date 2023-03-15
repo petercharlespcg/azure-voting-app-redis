@@ -61,7 +61,7 @@ pipeline {
             }
             stage('Run Trivy') {
                steps {
-                  sleep(time: 30, unit: 'Seconds')
+                  sleep(time: 30, unit: 'SECONDS')
          //       dir('C:\\Users\\s7608130\\Downloads\\trivy_0.38.2_windows-64bit') {
          //          powershell(script: """
          //          ./trivy image petercharles/jenkins-course
